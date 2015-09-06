@@ -1,0 +1,10 @@
+SublimeLinter-contrib-sass-lint
+-------------------------------
+This linter plugin for SublimeLinter provides an interface to sass-lint.
+
+** IMPORTANT! **
+
+Before this plugin will activate, you *must*
+follow the installation instructions here:
+
+https://github.com/skovhus/SublimeLinter-contrib-sass-lint
