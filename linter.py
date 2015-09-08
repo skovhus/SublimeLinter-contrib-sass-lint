@@ -35,7 +35,7 @@ class Sass(NodeLinter):
         r'^Error: Parsing error at .*:(?P<msg>.*#(?P<line>\d*))'
     )
     regex_error = re.compile(
-        r'^Error: (?P<msg>.*)'
+        r'^(\w*)Error: (?P<msg>.*)'
     )
     tempfile_suffix = 'scss'
     version_args = '--version'
@@ -66,7 +66,7 @@ class Sass(NodeLinter):
 
             match = self.regex_error.match(line)
             if match:
-                msg = match.group('msg')
+                msg = 'sass-lint failed: {}'.format(match.group('msg'))
                 return [(match, 0, None, "Error", "", msg, None)]
 
         return super().find_errors(output)
