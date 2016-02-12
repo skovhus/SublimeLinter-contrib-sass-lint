@@ -39,6 +39,14 @@ For general information on how SublimeLinter works with settings, please see [Se
 
 You can configure `sass-lint` options with a `.sass-lint.yml`. If a `.sass-lint.yml` file is not found in the file hierarchy starting with the linted file, your home directory will also be searched. For more information, see the [sass-lint page][sass-lint]. Default configuration file can be found [here][sass-lint-default-config].
 
+## Common issues
+
+Remember to choose SCSS syntax (lower right corner of Sublime), not SASS. Else you might get errors like
+
+> Please check validity of the block starting from #1.
+
+Cannot find that syntax? Install the package `SCSS`.
+
 ## Contributing
 If you would like to contribute enhancements or fixes, please do the following:
 
