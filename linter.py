@@ -19,7 +19,7 @@ class Sass(NodeLinter):
 
     """Provides an interface to the sass-lint executable."""
 
-    cmd = ('sass-lint', '--verbose', '--no-exit')
+    cmd = ('sass-lint', '--verbose', '--no-exit', '--format', 'stylish')
     config_file = ('--config', '.sass-lint.yml')
     npm_name = 'sass-lint'
     syntax = ('css', 'sass', 'scss')
@@ -57,7 +57,7 @@ class Sass(NodeLinter):
             if match:
                 items = match.groupdict()
                 try:
-                    line = int(items['line'])-1
+                    line = int(items['line']) - 1
                 except ValueError:
                     line = 0
                 return [(match, line, None, "Error", None, items['msg'], None)]
