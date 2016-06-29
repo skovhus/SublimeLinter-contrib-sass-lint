@@ -20,7 +20,7 @@ class Sass(NodeLinter):
     """Provides an interface to the sass-lint executable."""
 
     cmd = ('sass-lint', '--verbose', '--no-exit', '--format', 'stylish')
-    config_file = ('--config', '.sass-lint.yml')
+    config_file = ('--config', '.sass-lint.yml', '~')
     npm_name = 'sass-lint'
     syntax = ('css', 'sass', 'scss')
     regex = (
