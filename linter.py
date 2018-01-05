@@ -87,7 +87,7 @@ class Sass(NodeLinter):
             # determine `suffix` by `lang` attribute
             match_lang = re.search(r'lang="([^"]+)"', open_tag)
             if match_lang:
-                suffix = match_lang.group(1)
+                suffix = '.' + match_lang.group(1)
 
             # remove style tags
             code = re.sub(r'^\s*<style[^>]*>', '', code)
