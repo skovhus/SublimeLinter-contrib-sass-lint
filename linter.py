@@ -78,6 +78,7 @@ class Sass(NodeLinter):
         return super().find_errors(output)
 
     def tmpfile(self, cmd, code, suffix=''):
+        """Run an external executable using a temp file to pass code and return its output."""
         # check if <style> tag exists
         match_style_open_tag = re.search(r'^\s*<style[^>]*>', code)
         if match_style_open_tag:
