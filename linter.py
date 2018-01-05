@@ -77,6 +77,23 @@ class Sass(NodeLinter):
 
         return super().find_errors(output)
 
+    def tmpfile(self, cmd, code, suffix=''):
+        # check if <style> tag exists
+        match_style_open_tag = re.search(r'^\s*<style[^>]*>', code)
+        if match_style_open_tag:
+            open_tag = match_style_open_tag.group(0)
+
+            # determine `suffix` by `lang` attribute
+            match_lang = re.search(r'lang="([^"]+)"', open_tag)
+            if match_lang:
+                suffix = match_lang.group(1)
+
+            # remove style tags
+            code = re.sub(r'^\s*<style[^>]*>', '', code)
+            code = re.sub(r'</style>\s*$', '', code)
+
+        return super(Sass, self).tmpfile(cmd, code, suffix)
+
     def split_match(self, match):
         """
         Extract and return values from match.
