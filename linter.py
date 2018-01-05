@@ -22,7 +22,7 @@ class Sass(NodeLinter):
     cmd = ('sass-lint', '--verbose', '--no-exit', '--format', 'stylish')
     config_file = ('--config', '.sass-lint.yml', '~')
     npm_name = 'sass-lint'
-    syntax = ('css', 'sass', 'scss')
+    syntax = ('css', 'sass', 'scss', 'vue')
     regex = (
         r'^\s+(?P<line>\d+):(?P<col>\d+)'
         r'\s+((?P<error>error)|(?P<warning>warning))'
@@ -44,6 +44,9 @@ class Sass(NodeLinter):
     version_args = '--version'
     version_re = r'(?P<version>\d+\.\d+\.\d+)'
     version_requirement = '>= 1.2.0'
+    selectors = {
+        'vue': 'source.sass.embedded.html'
+    }
 
     def find_errors(self, output):
         """
@@ -73,6 +76,24 @@ class Sass(NodeLinter):
                 return [(match, 0, None, "Error", "", msg, None)]
 
         return super().find_errors(output)
+
+    def tmpfile(self, cmd, code, suffix=''):
+        """Run an external executable using a temp file to pass code and return its output."""
+        # check if <style> tag exists
+        match_style_open_tag = re.search(r'^\s*<style[^>]*>', code)
+        if match_style_open_tag:
+            open_tag = match_style_open_tag.group(0)
+
+            # determine `suffix` by `lang` attribute
+            match_lang = re.search(r'lang="([^"]+)"', open_tag)
+            if match_lang:
+                suffix = '.' + match_lang.group(1)
+
+            # remove style tags
+            code = re.sub(r'^\s*<style[^>]*>', '', code)
+            code = re.sub(r'</style>\s*$', '', code)
+
+        return super(Sass, self).tmpfile(cmd, code, suffix)
 
     def split_match(self, match):
         """
