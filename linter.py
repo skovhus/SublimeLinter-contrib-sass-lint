@@ -37,10 +37,7 @@ class Sass(NodeLinter):
     regex_error = re.compile(
         r'^(\w*)Error: (?P<msg>.*)'
     )
-    tempfile_suffix = {
-        'scss': 'scss',
-        'sass': 'sass'
-    }
+    tempfile_suffix = '-'
     version_args = '--version'
     version_re = r'(?P<version>\d+\.\d+\.\d+)'
     version_requirement = '>= 1.2.0'
