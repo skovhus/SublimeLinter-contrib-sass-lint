@@ -37,7 +37,10 @@ class Sass(NodeLinter):
     regex_error = re.compile(
         r'^(\w*)Error: (?P<msg>.*)'
     )
-    tempfile_suffix = '-'
+    tempfile_suffix = {
+        'scss': 'scss',
+        'sass': 'sass'
+    }
     version_args = '--version'
     version_re = r'(?P<version>\d+\.\d+\.\d+)'
     version_requirement = '>= 1.2.0'
@@ -74,7 +77,7 @@ class Sass(NodeLinter):
 
         return super().find_errors(output)
 
-    def tmpfile(self, cmd, code, suffix=''):
+    def tmpfile(self, cmd, code, suffix=None):
         """Run an external executable using a temp file to pass code and return its output."""
         # check if <style> tag exists
         match_style_open_tag = re.search(r'^\s*<style[^>]*>', code)
