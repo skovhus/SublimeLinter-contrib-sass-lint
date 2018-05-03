@@ -22,7 +22,7 @@ class Sass(NodeLinter):
     cmd = ('sass-lint', '--verbose', '--no-exit', '--format', 'stylish')
     config_file = ('--config', '.sass-lint.yml', '~')
     npm_name = 'sass-lint'
-    syntax = ('css', 'sass', 'scss', 'vue')
+    syntax = ('sass', 'scss', 'vue')
     regex = (
         r'^\s+(?P<line>\d+):(?P<col>\d+)'
         r'\s+((?P<error>error)|(?P<warning>warning))'
@@ -37,7 +37,10 @@ class Sass(NodeLinter):
     regex_error = re.compile(
         r'^(\w*)Error: (?P<msg>.*)'
     )
-    tempfile_suffix = '-'
+    tempfile_suffix = {
+        'sass':'sass',
+        'scss':'scss'
+    }
     version_args = '--version'
     version_re = r'(?P<version>\d+\.\d+\.\d+)'
     version_requirement = '>= 1.2.0'
@@ -74,7 +77,7 @@ class Sass(NodeLinter):
 
         return super().find_errors(output)
 
-    def tmpfile(self, cmd, code, suffix=''):
+    def tmpfile(self, cmd, code, suffix=None):
         """Run an external executable using a temp file to pass code and return its output."""
         # check if <style> tag exists
         match_style_open_tag = re.search(r'^\s*<style[^>]*>', code)
@@ -90,7 +93,7 @@ class Sass(NodeLinter):
             code = re.sub(r'^\s*<style[^>]*>', '', code)
             code = re.sub(r'</style>\s*$', '', code)
 
-        return super(Sass, self).tmpfile(cmd, code, suffix)
+        return super().tmpfile(cmd, code, suffix)
 
     def split_match(self, match):
         """
