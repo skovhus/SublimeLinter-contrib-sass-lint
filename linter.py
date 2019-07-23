@@ -20,7 +20,6 @@ class Sass(NodeLinter):
     """Provides an interface to the sass-lint executable."""
 
     cmd = ('sass-lint', '--verbose', '--no-exit', '--format', 'stylish')
-    config_file = ('--config', '.sass-lint.yml', '~')
     regex = (
         r'^\s+(?P<line>\d+):(?P<col>\d+)'
         r'\s+((?P<error>error)|(?P<warning>warning))'
