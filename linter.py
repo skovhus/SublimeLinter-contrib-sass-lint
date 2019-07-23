@@ -21,8 +21,6 @@ class Sass(NodeLinter):
 
     cmd = ('sass-lint', '--verbose', '--no-exit', '--format', 'stylish')
     config_file = ('--config', '.sass-lint.yml', '~')
-    npm_name = 'sass-lint'
-    syntax = ('css', 'sass', 'scss', 'vue')
     regex = (
         r'^\s+(?P<line>\d+):(?P<col>\d+)'
         r'\s+((?P<error>error)|(?P<warning>warning))'
@@ -41,11 +39,8 @@ class Sass(NodeLinter):
         'scss': 'scss',
         'sass': 'sass'
     }
-    version_args = '--version'
-    version_re = r'(?P<version>\d+\.\d+\.\d+)'
-    version_requirement = '>= 1.2.0'
-    selectors = {
-        'vue': 'source.sass.embedded.html'
+    defaults = {
+        'selector': 'source.sass'
     }
 
     def find_errors(self, output):
