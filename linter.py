@@ -39,7 +39,7 @@ class Sass(NodeLinter):
         'sass': 'sass'
     }
     defaults = {
-        'selector': 'source.sass'
+        'selector': 'source.sass, source.scss'
     }
 
     def find_errors(self, output):
