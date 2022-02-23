@@ -13,7 +13,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: "3.3.5"
+        python-version: "3.x"
     - name: Install dependencies
       run: |
         pip install flake8
